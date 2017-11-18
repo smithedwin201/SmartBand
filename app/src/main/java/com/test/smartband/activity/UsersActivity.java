@@ -205,7 +205,7 @@ public class UsersActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {//
-                Toast.makeText(UsersActivity.this, "获取头像成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UsersActivity.this, "获取头像成功12", Toast.LENGTH_SHORT).show();
                 Bitmap photo = BitmapFactory.decodeByteArray(respon, 0, respon.length);
                 //byte[] data： 是要进行decode的资源数据
                 //int offset：decode的位移量，一般为0
