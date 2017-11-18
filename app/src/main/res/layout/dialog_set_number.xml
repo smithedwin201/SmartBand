@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#353535"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"
+        android:text="请输入每天目标步数（步）"/>
+
+    <EditText
+        android:id="@+id/et_set_number"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="20dp"
+        android:hint="5000"
+        android:textSize="22sp"
+        android:focusable="true"
+        android:inputType="number"
+        android:maxLines="1"
+        android:maxLength="6"/>
+
+</LinearLayout>

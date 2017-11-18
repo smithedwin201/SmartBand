@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_run"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout_run"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ebebeb"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_top_bar"
+            android:background="@color/yellow_btn_normal">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:layout_marginLeft="8dp"
+                android:clickable="true"
+                android:src="@drawable/top_bar_back"
+                android:background="@drawable/btn_menu_bg_selector"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/view_temp"
+                android:text="跑步"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/iv_run_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingBottom="13dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:paddingTop="13dp"
+                android:clickable="true"
+                android:src="@drawable/ic_setting_white"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/btn_menu_bg_selector"/>
+        </RelativeLayout>
+
+        <TextView
+            android:text="累计已运动"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_run_record"
+            android:text="0.00"
+            android:textColor="@color/yellow_btn_normal"
+            android:textSize="120sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"/>
+        <TextView
+            android:text="Km"
+            android:gravity="center"
+            android:textSize="28sp"
+            android:textColor="@color/yellow_btn_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/iv_run_begin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:clickable="true"
+            android:visibility="visible"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_selector_run_begin"
+            />
+
+        <ImageView
+            android:id="@+id/iv_circle_yellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_circle_yellow"
+            />
+
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="运动，更美好的一天"
+            android:id="@+id/encourage_text_run"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:paddingBottom="20dp">
+            <LinearLayout
+                android:id="@+id/linearLayout_gps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_run_gps"
+                    android:text="GPS"
+                    android:textColor="#515151"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <ImageView
+                    android:id="@+id/iv_run_gps_signal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_gps_signal"/>
+                <ImageView
+                    android:id="@+id/iv_run_gps_signal1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_gps_signal_1"/>
+                <ImageView
+                    android:id="@+id/iv_run_gps_signal2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_gps_signal_2"/>
+                <ImageView
+                    android:id="@+id/iv_run_gps_signal3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_gps_signal_3"/>
+                <TextView
+                    android:id="@+id/tv_run_gps_off"
+                    android:text="未开启"
+                    android:textColor="#515151"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:layout_marginLeft="3dp"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_timing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/yellow_btn_normal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/count_text"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/white"
+            android:textSize="240sp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
