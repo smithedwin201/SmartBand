@@ -171,7 +171,7 @@ public class UsersActivity extends Activity {
 
         //从图片的路径获取头像图片
         Bitmap photo = getUserAvatar(avatarPath);
-        if (photo == null) {//不为小
+        if (photo == null) {//不是
             iv_avatar.setImageBitmap(photo);
         } else {
             //从服务器下载头像
