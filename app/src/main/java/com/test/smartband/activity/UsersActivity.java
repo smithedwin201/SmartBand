@@ -204,7 +204,7 @@ public class UsersActivity extends Activity {
     private void ShowResponse(final byte[] respon) {
         runOnUiThread(new Runnable() {
             @Override
-            public void run() {
+            public void run() {//
                 Toast.makeText(UsersActivity.this, "获取头像成功", Toast.LENGTH_SHORT).show();
                 Bitmap photo = BitmapFactory.decodeByteArray(respon, 0, respon.length);
                 //byte[] data： 是要进行decode的资源数据
