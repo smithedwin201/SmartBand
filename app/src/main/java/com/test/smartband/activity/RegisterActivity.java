@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,16 +27,26 @@ import android.widget.Toast;
 
 import com.mob.MobSDK;
 import com.test.smartband.R;
+import com.test.smartband.net.HttpUtil;
+import com.test.smartband.tools.CacheUtils;
+import com.test.smartband.tools.Config;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+import okhttp3.Call;
+import okhttp3.Response;
 
 
 /**
  * 注册新账号
  */
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
 
     private ImageView backImageView;
     private EditText phoneNumEditText;
@@ -141,6 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if(judgePhoneNums(phoneNums)){
                             SMSSDK.submitVerificationCode("86", phoneNums, verificationCode
                                     .getText().toString());
+
                             //createProgressBar();
                         }
                         // 验证通过之后，将smssdk注册代码注销
@@ -332,7 +343,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void initSDK() {
         //MobSDK.init(this, "1f484daddb3d6", "ef58f13641c76b66cfdb866041bfac71");//574223680
-        MobSDK.init(this, "1f497d3348b93", "5c28964c713849441d0cf3727673f667");//591803511
+       // MobSDK.init(this, "1f497d3348b93", "5c28964c713849441d0cf3727673f667");//591803511可以的
+        MobSDK.init(this, "1f484daddb3d6", "ef58f13641c76b66cfdb866041bfac71");
         EventHandler eventHandler = new EventHandler() {
             /**
              * 在操作之后被触发
@@ -384,19 +396,85 @@ public class RegisterActivity extends AppCompatActivity {
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
                         Toast.makeText(getApplicationContext(), "提交验证码成功",
                                 Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(RegisterActivity.this,
-                                LoginActivity.class);
-                        //phoneNumEditText.getText()
-                        //registerPwdEditText.getText()
-                        startActivity(intent);
+
+                        HttpUtil.Register(phoneNumEditText.getText().toString(),ensurePwdEditText.getText().toString(),
+                                new okhttp3.Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                Toast.makeText(RegisterActivity.this,
+                                                        R.string.fail_to_login, Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        String responseText = response.body().string();
+                                        Log.e("LoginActivity", responseText);
+                                        try {
+                                            if (responseText.equals("")) {
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Toast.makeText(RegisterActivity.this,
+                                                                R.string.fail_to_login, Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                                return;
+                                            }
+                                            JSONObject object = new JSONObject(responseText);
+                                            if (object.getInt(Config.KEY_RegisterSTATUS) == 1) {
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Config.setUser(phoneNumEditText.getText().toString());
+                                                        Config.setPassword(ensurePwdEditText.getText().toString());
+                                                        Toast.makeText(RegisterActivity.this,
+                                                                "从服务器验证账号密码方式注册成功", Toast.LENGTH_SHORT).show();
+                                                        //记录用户已经登录了
+                                                        CacheUtils.putBoolean(RegisterActivity.this, CacheUtils.IS_LOGIN, true);
+                                                        Intent intent = new Intent(RegisterActivity.this, MainBleActivity.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                });
+                                            }else{
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        Toast.makeText(RegisterActivity.this,
+                                                                "没有从服务器验证账号密码方式注册成功", Toast.LENGTH_SHORT).show();
+                                                        //记录用户已经登录了
+//                                                CacheUtils.putBoolean(LoginActivity.this, CacheUtils.IS_LOGIN, true);
+//                                                Intent intent = new Intent(LoginActivity.this, MainBleActivity.class);
+//                                                startActivity(intent);
+//                                                finish();
+                                                    }
+                                                });
+
+
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+
+
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                         Toast.makeText(getApplicationContext(), "验证码已经发送",
                                 Toast.LENGTH_SHORT).show();
-                    } else {
-//                        Toast.makeText(getApplicationContext(), "你输入的验证码有误",
-//                                Toast.LENGTH_SHORT).show();
-                        ((Throwable) data).printStackTrace();
                     }
+                }else {
+                    Toast.makeText(getApplicationContext(), "你输入的验证码有误",
+                            Toast.LENGTH_SHORT).show();
+                    ((Throwable) data).printStackTrace();
                 }
             }
         }
@@ -471,8 +549,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+
         //this.unregisterReceiver(smsBroadcastReceiver);
         SMSSDK.unregisterAllEventHandler();
+        super.onDestroy();
     }
 }

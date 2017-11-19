@@ -86,6 +86,23 @@ public class HttpUtil {
         sendOkHttpRequest(Config.SERVER_URL, body, callback);
     }
 
+
+    public static void Register(String phone_md5, String pwd, okhttp3.Callback callback) {
+        FormBody body = null;
+        try {
+            JSONObject object = new JSONObject();
+            object.put(Config.KEY_PHONE_MD5, phone_md5);
+            object.put(Config.KEY_PWD, pwd);
+            body = new FormBody.Builder()
+                    .add(Config.KEY_ACTION, Config.ACTION_Register)
+                    .add("checkJson", object.toString())
+                    .build();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        sendOkHttpRequest(Config.SERVER_URLRegister, body, callback);
+    }
+
 //    /**
 //     * 上传用户的头像   //创峰代码
 //     */

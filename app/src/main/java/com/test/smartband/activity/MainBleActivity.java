@@ -508,7 +508,8 @@ public class MainBleActivity extends BaseActivity implements FragmentSubAirCon.a
                 Log.e("woshishei", "onba ");
 //                mBluetoothAdapter.disable();//关闭蓝牙
 //                finish();
-                System.exit(0);
+//                System.exit(0);
+                ActivityCollector.finishAll();
                 //调用这个函数才能释放蓝牙资源
                 /*finish是Activity的类，仅仅针对Activity，当调用finish()时，
                 只是将活动推向后台，并没有立即释放内存，活动的资源并没有被清理；

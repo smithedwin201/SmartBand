@@ -24,6 +24,7 @@ public class Config {
     }
     public static final String BLUETOOTH_OFF_BROADCAST = "com.test.smartband.action.BLUETOOTH_OFF_BROADCAST";
     public static final String SERVER_URL = "http://192.168.199.245/Atest/Login";
+    public static final String SERVER_URLRegister = "http://192.168.199.245/Atest/Register";
     public static final String SERVER_URLSetPhoto = "http://192.168.199.245/Atest/SetAvatar";
     public static final String SERVER_URLGetPhoto = "http://192.168.199.245/Atest/GetAvatar";
 
@@ -45,6 +46,7 @@ public class Config {
     public static final String KEY_PHONE_MD5 = "phone_number";
 
     public static final String KEY_STATUS = "login_rp";
+    public static final String KEY_RegisterSTATUS = "Register_rp";
 //    public static final String KEY_STATUS = "isLogin";
 
 //    public static final String KEY_CODE = "code";
@@ -69,6 +71,7 @@ public class Config {
 
     public static final String ACTION_GET_CODE = "send_pass";
     public static final String ACTION_LOGIN = "login";
+    public static final String ACTION_Register = "Register";
     public static final String ACTION_GETAvatar = "get_avatar";
     public static final String ACTION_UPLOAD_CONTACTS = "upload_contacts";
     public static final String ACTION_TIMELINE = "timeline";

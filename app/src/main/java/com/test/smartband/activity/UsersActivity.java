@@ -181,11 +181,7 @@ public class UsersActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-//                            BitmapDrawable bd = (BitmapDrawable) iv_avatar.getDrawable();
-//                            Bitmap photo = bd.getBitmap();
-//                            File f = PhotosPath();
-//                            //保存到文件夹中
-//                            savePhoto(photo, f);
+
                             Toast.makeText(UsersActivity.this, "获取头像失败", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -239,7 +235,7 @@ public class UsersActivity extends Activity {
             out = new FileOutputStream(f);
 //            Log.e("woshishei","zheshi"+f  );
 //            Log.e("woshishei","shi"+out  );
-            photo.compress(Bitmap.CompressFormat.PNG, 80, out);  //80 是压缩率，表示压缩80%; 如果不压缩是100，表示压缩率为0
+            photo.compress(Bitmap.CompressFormat.PNG, 10, out);  //80 是压缩率，表示压缩80%; 如果不压缩是100，表示压缩率为0
             out.flush();
             out.close();
 
@@ -336,14 +332,7 @@ public class UsersActivity extends Activity {
 
     // 启动手机相机拍摄照片作为头像
     private void choseHeadImageFromCameraCapture() {
-//        Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        if (SDCardUtils.isSDCardEnable()) {
-//            // 判断存储卡是否可用，存储照片文件
-//            ContentValues values = new ContentValues();
-//            values.put(MediaStore.Images.Media.TITLE, IMAGE_FILE_NAME);
-//            intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,
-//                    Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/SmartBand", IMAGE_FILE_NAME)));
-//        }
+
         File outputImage = PhotosPath();
         if (Build.VERSION.SDK_INT < 24) {
             imageUri = Uri.fromFile(outputImage);
@@ -399,16 +388,6 @@ public class UsersActivity extends Activity {
             case PHOTO_REQUEST_TAKEPHOTO:
                 if (resultCode == RESULT_OK) {
                     try {
-//                        if (SDCardUtils.isSDCardEnable()) {
-//
-//                            File tempFile = new File(Environment.getExternalStorageDirectory() + "/SmartBand", IMAGE_FILE_NAME);
-//                            cropRawPhoto(Uri.fromFile(tempFile));
-//                        } else {
-//                            Toast.makeText(UsersActivity.this, "没有SDCard!", Toast.LENGTH_LONG).show();
-//                        }
-////                         将拍摄的照片显示出来
-//                        Log.e("woshishei", "onActivityResult: wodaole");
-//                        Toast.makeText(this, "shezhi", Toast.LENGTH_SHORT).show();
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
                         iv_avatar.setImageBitmap(bitmap);
                         Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, null, null));
@@ -460,28 +439,6 @@ public class UsersActivity extends Activity {
         }
     }
 
-//    private void showImage(String TUKUimagePath) {
-//
-//        File picture = new File(TUKUimagePath);
-//        cropRawPhoto(Uri.fromFile(picture));
-//
-//        Toast.makeText(UsersActivity.this, "获取头像成功1", Toast.LENGTH_SHORT).show();
-//        Bitmap photo = BitmapFactory.decodeFile(TUKUimagePath);
-//
-////                Log.e("woshishei", "adfgaeg" + respon.toString());
-////                Log.e("woshishei", "sssss" + photo.toString());
-//
-//        iv_avatar.setImageBitmap(photo);
-//
-//
-//        //把路径存下
-//        File f = PhotosPath();
-//
-//        //保存到文件夹中
-//        savePhoto(photo, f);
-//
-//
-//    }
 
 
     class MyListener implements View.OnClickListener {
@@ -651,7 +608,6 @@ public class UsersActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-//        refreshView();
     }
 
     public void back(View view) {
